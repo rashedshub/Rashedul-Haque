@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Under Construction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f5;
+      --mid: #888;
+      --border: #2a2a2a;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      padding: 2rem;
+      max-width: 680px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--mid);
+      font-size: 0.45em;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      margin-top: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--white);
+      margin: 2rem auto;
+    }
+
+    p {
+      color: var(--mid);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border: 1px solid;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+    .btn-primary:hover { background: transparent; color: var(--white); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--white); }
+
+    .ticker {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--border);
+      padding: 0.6rem 0;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: scroll 18s linear infinite;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      text-transform: uppercase;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-inner { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="badge">Status: Under Construction</div>
+
+    <h1>
+      Something<br/>is coming.
+      <span>We'll be back soon</span>
+    </h1>
+
+    <div class="divider"></div>
+
+    <p>We're building something worth the wait. Leave your details and we'll let you know the moment we launch.</p>
+
+    <div class="actions">
+      <a href="signup.html" class="btn btn-primary">Get early access</a>
+      <a href="login.html" class="btn btn-ghost">Sign in</a>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>Under Construction</span>
+      <span>Coming Soon</span>
+      <span>Stay Tuned</span>
+      <span>Work In Progress</span>
+      <span>Launch Imminent</span>
+      <span>Under Construction</span>
+      <span>Coming Soon</span>
+      <span>Stay Tuned</span>
+      <span>Work In Progress</span>
+      <span>Launch Imminent</span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f5;
+      --mid: #888;
+      --border: #2a2a2a;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* faint corner cross marks */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-color: var(--border);
+      border-style: solid;
+      pointer-events: none;
+    }
+    body::before {
+      top: 2rem; left: 2rem;
+      border-width: 1px 0 0 1px;
+    }
+    body::after {
+      bottom: 2rem; right: 2rem;
+      border-width: 0 1px 1px 0;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .top-bar-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .top-bar-link:hover { color: var(--white); border-color: var(--white); }
+
+    /* card */
+    .card {
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+
+    .card-header {
+      margin-bottom: 2rem;
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .field {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.5rem;
+    }
+
+    label a {
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.6rem;
+      transition: border-color 0.2s;
+    }
+    label a:hover { border-color: var(--white); }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    input:focus { border-color: var(--white); }
+    input::placeholder { color: #444; }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 0.4rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-submit:hover { background: transparent; color: var(--white); }
+
+    .card-foot {
+      margin-top: 1.6rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--mid);
+    }
+
+    .card-foot a {
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .card-foot a:hover { border-color: var(--white); }
+
+    /* subtle counter in corner */
+    .index-mark {
+      position: fixed;
+      bottom: 2rem;
+      left: 2.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--border);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 1.75rem; }
+      .top-bar { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html" class="logo">&#9632; YourBrand</a>
+    <a href="signup.html" class="top-bar-link">Create account →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Welcome back</div>
+      <h1>Sign in</h1>
+    </div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="ada@example.com" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="password">
+        Password
+        <a href="#">Forgot?</a>
+      </label>
+      <input type="password" id="password" placeholder="Your password" autocomplete="current-password" />
+    </div>
+
+    <button class="btn-submit">Sign in →</button>
+
+    <div class="card-foot">
+      No account yet? <a href="signup.html">Sign up</a>
+    </div>
+  </div>
+
+  <div class="index-mark">Under construction — v0.1</div>
+
+</body>
+</html>
