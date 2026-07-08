@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#0a0a0a; --white:#f5f5f5; --mid:#888; --border:#2a2a2a; --success:#44cc88; --warn:#f5a623; }
+
+    body { background:var(--black); color:var(--white); font-family:'Space Grotesk',sans-serif; min-height:100vh; }
+
+    .topbar { display:flex; align-items:center; justify-content:space-between; padding:1.2rem 2rem; border-bottom:1px solid var(--border); }
+    .logo { font-family:'Space Mono',monospace; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .btn-signout { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; background:transparent; color:var(--mid); border:1px solid var(--border); padding:0.4rem 0.9rem; cursor:pointer; transition:color 0.2s,border-color 0.2s; }
+    .btn-signout:hover { color:var(--white); border-color:var(--white); }
+
+    /* loading state */
+    #loading { display:flex; align-items:center; justify-content:center; min-height:80vh; }
+    #loading p { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); }
+
+    /* main content */
+    #content { display:none; max-width:700px; margin:0 auto; padding:4rem 2rem; text-align:center; }
+
+    .check-icon { font-size:3rem; margin-bottom:1.5rem; }
+
+    .eyebrow { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--success); margin-bottom:0.8rem; }
+
+    h1 { font-family:'Space Mono',monospace; font-size:clamp(1.8rem,5vw,3rem); font-weight:700; letter-spacing:-0.03em; line-height:1.1; margin-bottom:1rem; }
+
+    .user-info { font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--mid); margin-bottom:0.4rem; letter-spacing:0.05em; }
+
+    .divider { width:40px; height:2px; background:var(--border); margin:2rem auto; }
+
+    .status-box { border:1px solid var(--border); padding:1.2rem 1.5rem; margin-bottom:2rem; text-align:left; }
+    .status-box .s-label { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem; }
+    .status-box .s-value { font-family:'Space Mono',monospace; font-size:0.85rem; }
+    .status-box .s-value.pending  { color:var(--warn); }
+    .status-box .s-value.approved { color:var(--success); }
+    .status-box .s-value.rejected { color:#ff4444; }
+
+    .actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem; }
+    .btn { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.8rem 1.8rem; border:1px solid; text-decoration:none; display:inline-block; transition:background 0.2s,color 0.2s; cursor:pointer; }
+    .btn-primary { background:var(--white); color:var(--black); border-color:var(--white); }
+    .btn-primary:hover { background:transparent; color:var(--white); }
+    .btn-ghost { background:transparent; color:var(--white); border-color:var(--border); }
+    .btn-ghost:hover { border-color:var(--white); }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="index.html" class="logo">&#9632; YourBrand</a>
+    <button class="btn-signout" id="signoutBtn">Sign out</button>
+  </div>
+
+  <div id="loading"><p>Checking session…</p></div>
+
+  <div id="content">
+    <div class="check-icon">✦</div>
+    <div class="eyebrow">Authenticated</div>
+    <h1>You are<br/>logged in.</h1>
+    <p class="user-info" id="userName"></p>
+    <p class="user-info" id="userEmail"></p>
+
+    <div class="divider"></div>
+
+    <div class="status-box">
+      <div class="s-label">Account status</div>
+      <div class="s-value" id="userStatus">Checking…</div>
+    </div>
+
+    <div id="pendingNote" style="display:none; font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--mid); line-height:1.7; margin-bottom:1.5rem;">
+      Your account is pending admin approval.<br/>You'll receive an email once you're approved.
+    </div>
+
+    <div class="actions">
+      <a href="index.html" class="btn btn-ghost">← Home</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut }
+                                from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc }
+                                from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const app  = initializeApp({
+      apiKey: "AIzaSyCsu3StTX9q3hNk-kOK7Rz89tI-2P3OXgw",
+      authDomain: "i-rashedulhaque.firebaseapp.com",
+      projectId: "i-rashedulhaque",
+      storageBucket: "i-rashedulhaque.firebasestorage.app",
+      messagingSenderId: "456423753760",
+      appId: "1:456423753760:web:36a39da05cd1be62885445"
+    });
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // Not logged in → back to login
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Show content
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      // Fill user info
+      document.getElementById('userName').textContent  = '👤 ' + (user.displayName || 'No name set');
+      document.getElementById('userEmail').textContent = '✉ '  + user.email;
+
+      // Fetch Firestore status
+      try {
+        const snap   = await getDoc(doc(db, 'users', user.uid));
+        const status = snap.exists() ? snap.data().status : 'unknown';
+        const el     = document.getElementById('userStatus');
+        el.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+        el.className   = 's-value ' + status;
+
+        if (status === 'pending') {
+          document.getElementById('pendingNote').style.display = 'block';
+        }
+
+        // If admin, show admin panel link
+        if (snap.exists() && snap.data().role === 'admin') {
+          const actions = document.querySelector('.actions');
+          const adminBtn = document.createElement('a');
+          adminBtn.href = 'admin.html';
+          adminBtn.className = 'btn btn-primary';
+          adminBtn.textContent = 'Admin Panel →';
+          actions.prepend(adminBtn);
+        }
+      } catch {
+        document.getElementById('userStatus').textContent = 'Could not load status';
+      }
+    });
+
+    document.getElementById('signoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'login.html';
+    });
+  </script>
+
+</body>
+</html>
