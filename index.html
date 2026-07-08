@@ -3,198 +3,387 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Under Construction</title>
+  <title>Md. Rashedul Haque — HR Leader & Data Analyst</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#0a0a0a; --white:#f4f2ee; --mid:#888; --border:#222; --accent:#c8a96e; --dim:#1a1a1a; --error:#ff4444; --success:#44cc88; }
+    html { scroll-behavior: smooth; }
+    body { background:var(--black); color:var(--white); font-family:'Space Grotesk',sans-serif; font-size:1rem; line-height:1.6; overflow-x:hidden; }
 
-    :root {
-      --black: #0a0a0a;
-      --white: #f5f5f5;
-      --mid: #888;
-      --border: #2a2a2a;
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 2.5rem; border-bottom:1px solid var(--border); background:rgba(10,10,10,0.92); backdrop-filter:blur(8px); }
+    .nav-logo { font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-cta { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--black); background:var(--accent); border:none; padding:0.5rem 1.1rem; text-decoration:none; transition:opacity 0.2s; }
+    .nav-cta:hover { opacity:0.85; }
+
+    /* HERO */
+    .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); padding-top:64px; }
+    .hero-left { display:flex; flex-direction:column; justify-content:center; padding:5rem 3rem 5rem 2.5rem; border-right:1px solid var(--border); }
+    .hero-eyebrow { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:1.5rem; }
+    .hero-name { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,5vw,5rem); font-weight:700; line-height:1.02; letter-spacing:-0.02em; margin-bottom:1rem; }
+    .hero-name em { font-style:italic; color:var(--accent); }
+    .hero-title { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); margin-bottom:2rem; line-height:1.8; }
+    .hero-bio { font-size:0.95rem; color:#aaa; max-width:440px; line-height:1.75; margin-bottom:2.5rem; }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.8rem 1.8rem; border:1px solid; text-decoration:none; display:inline-block; transition:background 0.2s,color 0.2s; cursor:pointer; }
+    .btn-gold  { background:var(--accent); color:var(--black); border-color:var(--accent); }
+    .btn-gold:hover { background:transparent; color:var(--accent); }
+    .btn-ghost { background:transparent; color:var(--white); border-color:var(--border); }
+    .btn-ghost:hover { border-color:var(--white); }
+    .hero-right { display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5rem 2.5rem; position:relative; overflow:hidden; }
+    .hero-right::before { content:''; position:absolute; inset:0; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:40px 40px; opacity:0.6; }
+    .profile-frame { position:relative; width:260px; height:260px; border:2px solid var(--accent); overflow:hidden; z-index:1; margin-bottom:2rem; }
+    .profile-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--dim); font-family:'Playfair Display',serif; font-size:5rem; color:var(--accent); font-style:italic; }
+    .hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--border); width:100%; max-width:340px; z-index:1; }
+    .stat { padding:1rem; text-align:center; border-right:1px solid var(--border); }
+    .stat:last-child { border-right:none; }
+    .stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--accent); line-height:1; margin-bottom:0.3rem; }
+    .stat-lbl { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); }
+
+    /* SECTIONS */
+    section { border-bottom:1px solid var(--border); }
+    .section-inner { max-width:1100px; margin:0 auto; padding:5rem 2.5rem; }
+    .section-header { display:flex; align-items:baseline; gap:1.5rem; margin-bottom:3.5rem; }
+    .section-tag { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); white-space:nowrap; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:700; letter-spacing:-0.02em; }
+    .section-line { flex:1; height:1px; background:var(--border); }
+
+    /* AUTH SECTION */
+    .auth-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); }
+    .auth-panel { background:var(--black); padding:2.5rem; }
+    .auth-panel-title { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem; }
+    .auth-panel h3 { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:1.5rem; }
+    .field { margin-bottom:1rem; }
+    label { display:block; font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.4rem; }
+    input[type="text"], input[type="email"], input[type="password"] { width:100%; background:transparent; border:1px solid var(--border); color:var(--white); font-family:'Space Grotesk',sans-serif; font-size:0.9rem; padding:0.65rem 0.9rem; outline:none; transition:border-color 0.2s; appearance:none; border-radius:0; }
+    input:focus { border-color:var(--accent); }
+    input.inp-error { border-color:var(--error); }
+    input::placeholder { color:#444; }
+    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+    .err-msg { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--error); margin-top:0.3rem; display:none; }
+    .global-msg { font-family:'Space Mono',monospace; font-size:0.65rem; padding:0.65rem 0.9rem; margin-bottom:0.9rem; display:none; border:1px solid; line-height:1.5; }
+    .global-msg.error   { color:var(--error);   border-color:var(--error); }
+    .global-msg.success { color:var(--success);  border-color:var(--success); }
+    .btn-auth { width:100%; margin-top:0.3rem; font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.85rem; background:var(--accent); color:var(--black); border:1px solid var(--accent); cursor:pointer; transition:background 0.2s,color 0.2s,opacity 0.2s; }
+    .btn-auth:hover:not(:disabled) { background:transparent; color:var(--accent); }
+    .btn-auth:disabled { opacity:0.4; cursor:not-allowed; }
+    .auth-foot { margin-top:1rem; font-size:0.78rem; color:var(--mid); }
+    .auth-foot a { color:var(--white); text-decoration:none; border-bottom:1px solid var(--border); transition:border-color 0.2s; }
+    .auth-foot a:hover { border-color:var(--white); }
+    .forgot-link { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--mid); text-decoration:none; border-bottom:1px solid transparent; transition:color 0.2s; }
+    .forgot-link:hover { color:var(--white); }
+    .label-row { display:flex; justify-content:space-between; align-items:baseline; }
+
+    /* NAV CARDS — links to other pages */
+    .nav-cards { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .nav-card { background:var(--black); padding:1.8rem 1.5rem; text-decoration:none; color:var(--white); transition:background 0.2s; display:block; }
+    .nav-card:hover { background:var(--dim); }
+    .nav-card-tag { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem; }
+    .nav-card-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; }
+    .nav-card-arrow { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--mid); margin-top:0.8rem; display:block; transition:color 0.2s; }
+    .nav-card:hover .nav-card-arrow { color:var(--accent); }
+
+    /* FOOTER */
+    footer { padding:2rem 2.5rem; display:flex; align-items:center; justify-content:space-between; }
+    footer p { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; color:var(--mid); text-transform:uppercase; }
+    footer a { color:var(--mid); text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width:900px) {
+      .hero { grid-template-columns:1fr; }
+      .hero-right { display:none; }
+      .auth-grid { grid-template-columns:1fr; }
+      .nav-cards { grid-template-columns:1fr 1fr; }
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      .section-inner { padding:3.5rem 1.5rem; }
     }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Space Grotesk', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* animated grid background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .container {
-      position: relative;
-      text-align: center;
-      padding: 2rem;
-      max-width: 680px;
-    }
-
-    .badge {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--mid);
-      border: 1px solid var(--border);
-      padding: 0.4rem 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    h1 {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(2.4rem, 8vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 span {
-      display: block;
-      color: var(--mid);
-      font-size: 0.45em;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      margin-top: 0.6rem;
-      text-transform: uppercase;
-    }
-
-    .divider {
-      width: 40px;
-      height: 2px;
-      background: var(--white);
-      margin: 2rem auto;
-    }
-
-    p {
-      color: var(--mid);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 440px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.85rem 2rem;
-      border: 1px solid;
-      transition: background 0.2s, color 0.2s;
-      cursor: pointer;
-      display: inline-block;
-    }
-
-    .btn-primary {
-      background: var(--white);
-      color: var(--black);
-      border-color: var(--white);
-    }
-    .btn-primary:hover { background: transparent; color: var(--white); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--white);
-      border-color: var(--border);
-    }
-    .btn-ghost:hover { border-color: var(--white); }
-
-    .ticker {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      border-top: 1px solid var(--border);
-      padding: 0.6rem 0;
-      overflow: hidden;
-      background: var(--black);
-    }
-
-    .ticker-inner {
-      display: flex;
-      gap: 4rem;
-      width: max-content;
-      animation: scroll 18s linear infinite;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--mid);
-      text-transform: uppercase;
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-inner { animation: none; }
+    @media (max-width:500px) {
+      .nav-cards { grid-template-columns:1fr; }
+      .row-2 { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="badge">Status: Under Construction</div>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Rashedul Haque</a>
+    <ul class="nav-links">
+      <li><a href="#auth">Login / Sign Up</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="#auth" class="nav-cta">Get in touch</a>
+  </nav>
 
-    <h1>
-      Something<br/>is coming.
-      <span>We'll be back soon</span>
-    </h1>
-
-    <div class="divider"></div>
-
-    <p>We're building something worth the wait. Leave your details and we'll let you know the moment we launch.</p>
-
-    <div class="actions">
-      <a href="signup.html" class="btn btn-primary">Get early access</a>
-      <a href="login.html" class="btn btn-ghost">Sign in</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">HR Leader · Data Analyst · Strategic Partner</div>
+      <h1 class="hero-name">Md. <em>Rashedul</em><br/>Haque</h1>
+      <div class="hero-title">
+        Deputy Manager — Employee & Culture<br/>
+        Strategic Business Partner · Youngone Corporation
+      </div>
+      <p class="hero-bio">A passionate HR professional with nearly a decade of experience in HR operations, payroll, data analytics, and strategic business partnering. I use data and technology to make HR smarter — from Power BI dashboards to HRMS automation.</p>
+      <div class="hero-actions">
+        <a href="experience.html" class="btn btn-gold">View Experience</a>
+        <a href="resume.html" class="btn btn-ghost">Download Resume</a>
+      </div>
     </div>
-  </div>
-
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span>Under Construction</span>
-      <span>Coming Soon</span>
-      <span>Stay Tuned</span>
-      <span>Work In Progress</span>
-      <span>Launch Imminent</span>
-      <span>Under Construction</span>
-      <span>Coming Soon</span>
-      <span>Stay Tuned</span>
-      <span>Work In Progress</span>
-      <span>Launch Imminent</span>
+    <div class="hero-right">
+      <div class="profile-frame">
+        <div class="profile-placeholder">R</div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">9+</div><div class="stat-lbl">Years Exp.</div></div>
+        <div class="stat"><div class="stat-num">8K+</div><div class="stat-lbl">Employees</div></div>
+        <div class="stat"><div class="stat-num">6</div><div class="stat-lbl">Roles</div></div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- AUTH SECTION (replaces About) -->
+  <section id="auth">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">01</span>
+        <h2 class="section-title">Login / Sign Up</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="auth-grid">
+
+        <!-- LOGIN -->
+        <div class="auth-panel">
+          <div class="auth-panel-title">Returning user</div>
+          <h3>Sign In</h3>
+          <div id="loginMsg" class="global-msg"></div>
+          <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <div class="label-row">
+              <label for="loginPass">Password</label>
+              <a href="#" class="forgot-link" id="forgotLink">Forgot?</a>
+            </div>
+            <input type="password" id="loginPass" placeholder="Your password" />
+          </div>
+          <button class="btn-auth" id="loginBtn">Sign in →</button>
+          <div class="auth-foot">No account? <a href="#" id="scrollToSignup">Sign up below ↓</a></div>
+        </div>
+
+        <!-- SIGNUP -->
+        <div class="auth-panel" id="signupPanel">
+          <div class="auth-panel-title">New here</div>
+          <h3>Create Account</h3>
+          <div id="signupMsg" class="global-msg"></div>
+          <div class="row-2">
+            <div class="field">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" placeholder="Ada" />
+            </div>
+            <div class="field">
+              <label for="lname">Last name</label>
+              <input type="text" id="lname" placeholder="Lovelace" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="signupEmail">Email address</label>
+            <input type="email" id="signupEmail" placeholder="you@example.com" />
+            <div class="err-msg" id="emailErr"></div>
+          </div>
+          <div class="field">
+            <label for="signupPass">Password</label>
+            <input type="password" id="signupPass" placeholder="Min. 8 characters" />
+            <div class="err-msg" id="passErr"></div>
+          </div>
+          <div class="field">
+            <label for="confirmPass">Confirm password</label>
+            <input type="password" id="confirmPass" placeholder="Repeat password" />
+            <div class="err-msg" id="confirmErr"></div>
+          </div>
+          <button class="btn-auth" id="signupBtn">Create account →</button>
+          <div class="auth-foot">Already have an account? <a href="#" id="scrollToLogin">Sign in ↑</a></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE LINKS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">02</span>
+        <h2 class="section-title">Explore</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="nav-cards">
+        <a href="skills.html" class="nav-card">
+          <div class="nav-card-tag">02</div>
+          <div class="nav-card-title">Skills</div>
+          <span class="nav-card-arrow">View →</span>
+        </a>
+        <a href="experience.html" class="nav-card">
+          <div class="nav-card-tag">03</div>
+          <div class="nav-card-title">Experience</div>
+          <span class="nav-card-arrow">View →</span>
+        </a>
+        <a href="education.html" class="nav-card">
+          <div class="nav-card-tag">04</div>
+          <div class="nav-card-title">Education</div>
+          <span class="nav-card-arrow">View →</span>
+        </a>
+        <a href="resume.html" class="nav-card">
+          <div class="nav-card-tag">05</div>
+          <div class="nav-card-title">Resume</div>
+          <span class="nav-card-arrow">View →</span>
+        </a>
+        <a href="contact.html" class="nav-card">
+          <div class="nav-card-tag">06</div>
+          <div class="nav-card-title">Contact</div>
+          <span class="nav-card-arrow">View →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Md. Rashedul Haque — All rights reserved</p>
+    <p><a href="admin.html">Admin</a></p>
+  </footer>
+
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail, sendEmailVerification }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const app  = initializeApp({
+      apiKey: "AIzaSyCsu3StTX9q3hNk-kOK7Rz89tI-2P3OXgw",
+      authDomain: "i-rashedulhaque.firebaseapp.com",
+      projectId: "i-rashedulhaque",
+      storageBucket: "i-rashedulhaque.firebasestorage.app",
+      messagingSenderId: "456423753760",
+      appId: "1:456423753760:web:36a39da05cd1be62885445"
+    });
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    function showMsg(id, msg, type) {
+      const el = document.getElementById(id);
+      el.textContent = msg; el.className = 'global-msg ' + type; el.style.display = 'block';
+    }
+    function hideMsg(id) { document.getElementById(id).style.display = 'none'; }
+    function showErr(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = msg; el.style.display = msg ? 'block' : 'none';
+    }
+
+    // scroll helpers
+    document.getElementById('scrollToSignup').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('signupPanel').scrollIntoView({ behavior:'smooth' });
+    });
+    document.getElementById('scrollToLogin').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('auth').scrollIntoView({ behavior:'smooth' });
+    });
+
+    // ── LOGIN ──────────────────────────────────
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      hideMsg('loginMsg');
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPass').value;
+      const btn      = document.getElementById('loginBtn');
+
+      if (!email || !password) {
+        showMsg('loginMsg', 'Please fill in all fields.', 'error'); return;
+      }
+      btn.disabled = true; btn.textContent = 'Signing in…';
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showMsg('loginMsg', 'Signed in! Redirecting…', 'success');
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+      } catch (err) {
+        btn.disabled = false; btn.textContent = 'Sign in →';
+        const msgs = {
+          'auth/user-not-found':       'No account found with this email.',
+          'auth/wrong-password':       'Incorrect password.',
+          'auth/invalid-credential':   'Invalid email or password.',
+          'auth/too-many-requests':    'Too many attempts. Try again later.',
+          'auth/invalid-email':        'Please enter a valid email.',
+        };
+        showMsg('loginMsg', msgs[err.code] || err.message, 'error');
+      }
+    });
+
+    // forgot password
+    document.getElementById('forgotLink').addEventListener('click', async e => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      if (!email) { showMsg('loginMsg','Enter your email above first.','error'); return; }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showMsg('loginMsg','Password reset email sent. Check your inbox.','success');
+      } catch { showMsg('loginMsg','Could not send reset email.','error'); }
+    });
+
+    // ── SIGNUP ─────────────────────────────────
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      hideMsg('signupMsg');
+      ['emailErr','passErr','confirmErr'].forEach(id => showErr(id,''));
+      ['signupEmail','signupPass','confirmPass'].forEach(id => document.getElementById(id).classList.remove('inp-error'));
+
+      const fname   = document.getElementById('fname').value.trim();
+      const lname   = document.getElementById('lname').value.trim();
+      const email   = document.getElementById('signupEmail').value.trim();
+      const pass    = document.getElementById('signupPass').value;
+      const confirm = document.getElementById('confirmPass').value;
+      const btn     = document.getElementById('signupBtn');
+      let valid = true;
+
+      if (!email) { showErr('emailErr','Email is required.'); document.getElementById('signupEmail').classList.add('inp-error'); valid=false; }
+      if (pass.length < 8) { showErr('passErr','Min. 8 characters.'); document.getElementById('signupPass').classList.add('inp-error'); valid=false; }
+      if (pass !== confirm) { showErr('confirmErr','Passwords do not match.'); document.getElementById('confirmPass').classList.add('inp-error'); valid=false; }
+      if (!valid) return;
+
+      btn.disabled = true; btn.textContent = 'Creating account…';
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: (fname+' '+lname).trim() });
+        await setDoc(doc(db,'users',cred.user.uid), {
+          uid: cred.user.uid, email, firstName:fname, lastName:lname,
+          role:'user', status:'pending', createdAt: serverTimestamp()
+        });
+        await sendEmailVerification(cred.user);
+        showMsg('signupMsg','Account created! Pending admin approval. Check your email.','success');
+        btn.textContent = 'Done ✓';
+      } catch (err) {
+        btn.disabled = false; btn.textContent = 'Create account →';
+        const msgs = {
+          'auth/email-already-in-use': 'This email is already registered.',
+          'auth/invalid-email':        'Please enter a valid email.',
+          'auth/weak-password':        'Password is too weak.',
+        };
+        showMsg('signupMsg', msgs[err.code] || err.message, 'error');
+      }
+    });
+  </script>
 
 </body>
 </html>
