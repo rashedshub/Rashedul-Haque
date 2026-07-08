@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Rashedul Haque</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#0a0a0a;--white:#f4f2ee;--mid:#888;--border:#222;--accent:#c8a96e}
+    body{background:var(--black);color:var(--white);font-family:'Space Grotesk',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 2rem}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(8px)}
+    .nav-logo{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none}
+    .nav-back{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s}
+    .nav-back:hover{color:var(--accent)}
+    .resume-card{border:1px solid var(--border);padding:3.5rem;max-width:560px;width:100%;text-align:center}
+    .resume-eyebrow{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+    .resume-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.8rem}
+    .resume-desc{font-size:0.88rem;color:var(--mid);line-height:1.7;margin-bottom:2.5rem}
+    .btn{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 2rem;border:1px solid;text-decoration:none;display:inline-block;transition:background 0.2s,color 0.2s;cursor:pointer}
+    .btn-gold{background:var(--accent);color:var(--black);border-color:var(--accent)}
+    .btn-gold:hover{background:transparent;color:var(--accent)}
+    footer{position:fixed;bottom:0;left:0;right:0;padding:1.2rem 2.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;background:var(--black)}
+    footer p{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--mid);text-transform:uppercase}
+    footer a{color:var(--mid);text-decoration:none}
+    footer a:hover{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Rashedul Haque</a>
+    <a href="index.html" class="nav-back">← Back home</a>
+  </nav>
+  <div class="resume-card">
+    <div class="resume-eyebrow">05 — Resume</div>
+    <h1 class="resume-title">Full Resume</h1>
+    <p class="resume-desc">View or download the complete resume of Md. Rashedul Haque — covering all experience, skills, education, and achievements in full detail.</p>
+    <a href="https://rxresu.me/rhaque.eee/resume-mdrashedul-haque-v3" target="_blank" class="btn btn-gold">View Resume on RxResu →</a>
+  </div>
+  <footer><p>© 2025 Md. Rashedul Haque</p><p><a href="index.html">Home</a></p></footer>
+</body>
+</html>
