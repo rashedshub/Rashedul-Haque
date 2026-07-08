@@ -29,8 +29,8 @@
     input.error { border-color:var(--error); }
     input::placeholder { color:#444; }
     .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-    .err-msg { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; color:var(--error); margin-top:0.4rem; display:none; }
-    .global-msg { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.08em; padding:0.75rem 1rem; margin-bottom:1rem; display:none; border:1px solid; }
+    .err-msg { font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--error); margin-top:0.4rem; display:none; }
+    .global-msg { font-family:'Space Mono',monospace; font-size:0.7rem; padding:0.75rem 1rem; margin-bottom:1rem; display:none; border:1px solid; line-height:1.5; }
     .global-msg.error { color:var(--error); border-color:var(--error); }
     .global-msg.success { color:var(--success); border-color:var(--success); }
     .btn-submit { width:100%; margin-top:0.5rem; font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:1rem; background:var(--white); color:var(--black); border:1px solid var(--white); cursor:pointer; transition:background 0.2s,color 0.2s,opacity 0.2s; }
@@ -45,14 +45,13 @@
   </style>
 </head>
 <body>
-
   <div class="panel-left">
-    <a href="index.html" class="logo">&#9632; Rashed</a>
+    <a href="index.html" class="logo">&#9632; YourBrand</a>
     <div class="panel-left-content">
       <h2>Join the<br/>waitlist.</h2>
-      <p>Be among the first to access what we're building. No spam — just the launch date when it matters.</p>
+      <p>Sign up and wait for admin approval before you can access the dashboard.</p>
     </div>
-    <div class="panel-left-foot">© 2025 Rashed — All rights reserved</div>
+    <div class="panel-left-foot">© 2025 YourBrand — All rights reserved</div>
   </div>
 
   <div class="panel-right">
@@ -104,8 +103,22 @@
   </div>
 
   <script type="module">
-    import { auth } from "/js/firebase.js";
-    import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification }
+                                                      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp }
+                                                      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyCsu3StTX9q3hNk-kOK7Rz89tI-2P3OXgw",
+      authDomain: "i-rashedulhaque.firebaseapp.com",
+      projectId: "i-rashedulhaque",
+      storageBucket: "i-rashedulhaque.firebasestorage.app",
+      messagingSenderId: "456423753760",
+      appId: "1:456423753760:web:36a39da05cd1be62885445"
+    });
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
 
     const btn = document.getElementById('submitBtn');
 
@@ -114,14 +127,12 @@
       el.textContent = msg;
       el.style.display = msg ? 'block' : 'none';
     }
-
     function showGlobal(msg, type) {
       const el = document.getElementById('globalMsg');
       el.textContent = msg;
       el.className = 'global-msg ' + type;
       el.style.display = 'block';
     }
-
     function clearErrors() {
       ['emailErr','passErr','confirmErr'].forEach(id => showErr(id, ''));
       ['email','password','confirm'].forEach(id => document.getElementById(id).classList.remove('error'));
@@ -130,7 +141,6 @@
 
     btn.addEventListener('click', async () => {
       clearErrors();
-
       const fname    = document.getElementById('fname').value.trim();
       const lname    = document.getElementById('lname').value.trim();
       const email    = document.getElementById('email').value.trim();
@@ -159,10 +169,29 @@
       btn.textContent = 'Creating account…';
 
       try {
+        // 1. Create Firebase Auth user
         const cred = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(cred.user, { displayName: (fname + ' ' + lname).trim() });
-        showGlobal('Account created! Redirecting…', 'success');
-        setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+        const user = cred.user;
+
+        // 2. Set display name
+        await updateProfile(user, { displayName: (fname + ' ' + lname).trim() });
+
+        // 3. Save user doc to Firestore with status: pending
+        await setDoc(doc(db, 'users', user.uid), {
+          uid:       user.uid,
+          email:     email,
+          firstName: fname,
+          lastName:  lname,
+          role:      'user',
+          status:    'pending',
+          createdAt: serverTimestamp()
+        });
+
+        // 4. Send verification email
+        await sendEmailVerification(user);
+
+        showGlobal('Account created! Your request is pending admin approval. Check your email to verify your address.', 'success');
+        btn.textContent = 'Done ✓';
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Create account →';
@@ -172,10 +201,9 @@
           'auth/weak-password':          'Password is too weak.',
           'auth/network-request-failed': 'Network error. Check your connection.',
         };
-        showGlobal(msgs[err.code] || 'Something went wrong. Please try again.', 'error');
+        showGlobal(msgs[err.code] || ('Error: ' + err.message), 'error');
       }
     });
   </script>
-
 </body>
 </html>
