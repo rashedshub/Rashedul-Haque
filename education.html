@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Education — Rashedul Haque</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#0a0a0a;--white:#f4f2ee;--mid:#888;--border:#222;--accent:#c8a96e;--dim:#1a1a1a}
+    body{background:var(--black);color:var(--white);font-family:'Space Grotesk',sans-serif;min-height:100vh}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(8px)}
+    .nav-logo{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none}
+    .nav-back{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s}
+    .nav-back:hover{color:var(--accent)}
+    .page-wrap{max-width:1100px;margin:0 auto;padding:8rem 2.5rem 5rem}
+    .page-header{margin-bottom:3.5rem}
+    .page-eyebrow{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;letter-spacing:-0.02em}
+    .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2rem}
+    .edu-card{background:var(--black);padding:2.5rem}
+    .edu-num{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem}
+    .edu-degree{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:0.6rem}
+    .edu-school{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem}
+    .edu-year{font-family:'Space Mono',monospace;font-size:0.6rem;color:#555}
+    .cert-box{border:1px solid var(--border);padding:2rem}
+    .cert-title{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+    .cert-item{font-size:0.9rem;color:var(--mid);padding:0.6rem 0;border-bottom:1px solid var(--border)}
+    .cert-item:last-child{border-bottom:none}
+    footer{padding:2rem 2.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between}
+    footer p{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--mid);text-transform:uppercase}
+    footer a{color:var(--mid);text-decoration:none}
+    footer a:hover{color:var(--accent)}
+    @media(max-width:700px){.edu-grid{grid-template-columns:1fr}.page-wrap{padding:7rem 1.5rem 3rem}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Rashedul Haque</a>
+    <a href="index.html" class="nav-back">← Back home</a>
+  </nav>
+  <div class="page-wrap">
+    <div class="page-header">
+      <div class="page-eyebrow">04 — Education</div>
+      <h1 class="page-title">Education &<br/><em style="font-style:italic;color:var(--accent)">Qualifications</em></h1>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-num">Postgraduate</div>
+        <div class="edu-degree">MBA — Human Resources Management</div>
+        <div class="edu-school">Jahangirnagar University</div>
+        <div class="edu-year">2015 – 2017</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-num">Undergraduate</div>
+        <div class="edu-degree">BSc — Electrical & Electronic Engineering</div>
+        <div class="edu-school">University of Asia Pacific</div>
+        <div class="edu-year">2009 – 2013</div>
+      </div>
+    </div>
+    <div class="cert-box">
+      <div class="cert-title">Certifications & Memberships</div>
+      <div class="cert-item">IEB Membership — Institution of Engineers, Bangladesh</div>
+    </div>
+  </div>
+  <footer><p>© 2025 Md. Rashedul Haque</p><p><a href="index.html">Home</a></p></footer>
+</body>
+</html>
