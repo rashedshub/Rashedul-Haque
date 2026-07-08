@@ -126,7 +126,7 @@
       try {
         await signInWithEmailAndPassword(auth, email, password);
         showGlobal('Signed in! Redirecting…', 'success');
-        setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Sign in →';
